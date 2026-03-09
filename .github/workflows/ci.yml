@@ -10,16 +10,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 10.6.5
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile=false
-      - run: pnpm lint
-      - run: pnpm type-check
-      - run: pnpm --filter react-native-goodcharts build
-      - run: pnpm --filter react-native-goodcharts exec npm pack --dry-run
-      - run: pnpm test
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run type-check
+      - run: npm run build --workspace react-native-goodcharts
+      - run: npm pack --dry-run --ignore-scripts --workspace react-native-goodcharts
+      - run: npm test -- --runInBand

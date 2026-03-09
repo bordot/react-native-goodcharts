@@ -12,24 +12,21 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 10.6.5
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: pnpm
+          cache: npm
           registry-url: https://registry.npmjs.org
-      - run: pnpm install --frozen-lockfile=false
-      - run: pnpm lint
-      - run: pnpm type-check
-      - run: pnpm test
-      - run: pnpm --filter react-native-goodcharts build
-      - run: pnpm --filter react-native-goodcharts exec npm pack --dry-run
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run type-check
+      - run: npm test -- --runInBand
+      - run: npm run build --workspace react-native-goodcharts
+      - run: npm pack --dry-run --ignore-scripts --workspace react-native-goodcharts
       - uses: changesets/action@v1
         with:
-          version: pnpm release:version
-          publish: pnpm release:publish
+          version: npm run release:version
+          publish: npm run release:publish
           commit: chore: release packages
           title: chore: release packages
         env:

@@ -1,8 +1,8 @@
 node_modules
-.pnpm-store
 dist
 coverage
 .expo
 .docusaurus
 .turbo
+.npm-cache
 *.log

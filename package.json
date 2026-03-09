@@ -2,19 +2,19 @@
   "name": "react-native-goodcharts-workspace",
   "private": true,
   "version": "0.1.0",
-  "packageManager": "pnpm@10.6.5",
+  "packageManager": "npm@10.9.2",
   "workspaces": ["apps/*", "packages/*"],
   "scripts": {
-    "build": "pnpm --filter react-native-goodcharts build",
-    "type-check": "pnpm --filter react-native-goodcharts type-check",
+    "build": "npm run build --workspace react-native-goodcharts",
+    "type-check": "npm run type-check --workspace react-native-goodcharts",
     "lint": "biome check .",
     "test": "jest --runInBand",
     "bench": "tsx benchmarks/render-time.ts",
     "release:version": "changeset version",
     "release:publish": "changeset publish",
-    "pack:dry-run": "pnpm --filter react-native-goodcharts build && pnpm --filter react-native-goodcharts exec npm pack --dry-run",
-    "docs:start": "pnpm --filter docs start",
-    "example:start": "pnpm --filter example start"
+    "pack:dry-run": "npm run build --workspace react-native-goodcharts && npm pack --dry-run --ignore-scripts --workspace react-native-goodcharts",
+    "docs:start": "npm run start --workspace docs",
+    "example:start": "npm run start --workspace example"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",

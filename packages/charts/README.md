@@ -2,6 +2,8 @@
 
 GPU-accelerated charting for React Native, built on Skia, Reanimated, and Gesture Handler.
 
+`react-native-goodcharts` ships batteries-included chart components plus lower-level primitives for custom charting surfaces.
+
 ## Install
 
 ```bash
@@ -15,6 +17,24 @@ npm install expo-haptics
 ```
 
 This package targets React Native `0.76+` and Expo dev builds. Expo Go is not supported because Skia is a native dependency.
+
+## Included Charts
+
+- `LineChart`
+- `AreaChart`
+- `BarChart`
+- `HorizontalBarChart`
+- `StackedBarChart`
+- `ScatterChart`
+- `ComboChart`
+- `CandlestickChart`
+- `PieChart`
+- `DonutChart`
+- `RadarChart`
+- `HeatmapChart`
+- `ProgressRingChart`
+- `ProgressBarChart`
+- `SparklineChart`
 
 ## Quick Start
 
@@ -41,12 +61,19 @@ export function RevenueChart() {
 }
 ```
 
-## Included Surface
+## Composable Surface
 
 - Cartesian charts: `LineChart`, `AreaChart`, `BarChart`, `HorizontalBarChart`, `StackedBarChart`, `ScatterChart`, `ComboChart`, `CandlestickChart`
 - Radial charts: `PieChart`, `DonutChart`, `RadarChart`
 - Other P0 charts: `HeatmapChart`, `ProgressRingChart`, `ProgressBarChart`, `SparklineChart`
 - Composable APIs: `Chart`, `CartesianCanvas`, `RadialCanvas`, axes, primitives, overlays, hooks, themes
+
+## Interaction and Export
+
+- crosshair, tooltip, selection, pan, and pinch zoom on the shared cartesian surface
+- windowing and downsampling hooks for larger datasets
+- `toSVG()` for deterministic export
+- `toImage("png" | "jpeg" | "svg")` and `toBase64(...)` on mounted chart refs
 
 ## Export API
 
@@ -57,6 +84,14 @@ Mounted chart refs support:
 - `toBase64("svg" | "png" | "jpeg")`
 
 SVG export is serializer-based. PNG and JPEG export use native Skia capture for mounted charts.
+
+## Requirements
+
+- React Native `0.76+`
+- React `18.2+`
+- `@shopify/react-native-skia`
+- `react-native-reanimated`
+- `react-native-gesture-handler`
 
 ## Current Limits
 

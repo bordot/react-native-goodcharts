@@ -7,6 +7,7 @@
   "react-native": "./src/index.ts",
   "types": "./dist/typescript/index.d.ts",
   "source": "./src/index.ts",
+  "sideEffects": false,
   "exports": {
     ".": {
       "types": "./dist/typescript/index.d.ts",
@@ -29,19 +30,22 @@
   "author": "GoodCharts",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/goodcharts/react-native-goodcharts.git"
+    "url": "git+https://github.com/bordot/react-native-goodcharts.git"
   },
-  "homepage": "https://github.com/goodcharts/react-native-goodcharts#readme",
+  "homepage": "https://github.com/bordot/react-native-goodcharts#readme",
   "bugs": {
-    "url": "https://github.com/goodcharts/react-native-goodcharts/issues"
+    "url": "https://github.com/bordot/react-native-goodcharts/issues"
   },
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
-    "build": "bob build",
+    "build:js": "bob build",
+    "build:types": "node ../../node_modules/typescript/lib/tsc.js -p tsconfig.json --declaration --declarationMap --emitDeclarationOnly --outDir dist/typescript",
+    "build:cleanmaps": "node ../../scripts/clean-dist-maps.cjs dist",
+    "build": "npm run build:js && npm run build:types && npm run build:cleanmaps",
     "type-check": "tsc -p tsconfig.json --noEmit",
-    "prepack": "bob build"
+    "prepack": "npm run build"
   },
   "peerDependencies": {
     "@shopify/react-native-skia": ">=1.5.0 <2.0.0",
@@ -67,10 +71,6 @@
   "react-native-builder-bob": {
     "source": "src",
     "output": "dist",
-    "targets": [
-      ["commonjs", { "esm": true }],
-      ["module", { "esm": true }],
-      "typescript"
-    ]
+    "targets": [["commonjs", { "esm": true }], ["module", { "esm": true }]]
   }
 }
