@@ -1,0 +1,9 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist/typescript",
+    "types": ["react", "react-native"]
+  },
+  "include": ["src"]
+}

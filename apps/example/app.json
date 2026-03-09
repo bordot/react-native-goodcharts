@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "react-native-goodcharts",
+    "slug": "react-native-goodcharts-example",
+    "scheme": "goodcharts",
+    "plugins": ["expo-router"],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

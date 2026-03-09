@@ -1,0 +1,14 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+    "baseUrl": "../..",
+    "paths": {
+      "react-native-goodcharts": ["packages/charts/src"],
+      "react-native-goodcharts/*": ["packages/charts/src/*"]
+    }
+  },
+  "include": ["app", "src"]
+}

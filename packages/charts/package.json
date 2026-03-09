@@ -1,0 +1,76 @@
+{
+  "name": "react-native-goodcharts",
+  "version": "0.1.0",
+  "description": "GPU-accelerated charting library for React Native powered by Skia.",
+  "main": "./dist/commonjs/index.js",
+  "module": "./dist/module/index.js",
+  "react-native": "./src/index.ts",
+  "types": "./dist/typescript/index.d.ts",
+  "source": "./src/index.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/typescript/index.d.ts",
+      "react-native": "./src/index.ts",
+      "import": "./dist/module/index.js",
+      "require": "./dist/commonjs/index.js",
+      "default": "./dist/module/index.js"
+    }
+  },
+  "files": ["dist", "README.md", "LICENSE"],
+  "keywords": [
+    "react-native",
+    "charts",
+    "skia",
+    "data-visualization",
+    "reanimated",
+    "gesture-handler"
+  ],
+  "license": "MIT",
+  "author": "GoodCharts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/goodcharts/react-native-goodcharts.git"
+  },
+  "homepage": "https://github.com/goodcharts/react-native-goodcharts#readme",
+  "bugs": {
+    "url": "https://github.com/goodcharts/react-native-goodcharts/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "bob build",
+    "type-check": "tsc -p tsconfig.json --noEmit",
+    "prepack": "bob build"
+  },
+  "peerDependencies": {
+    "@shopify/react-native-skia": ">=1.5.0 <2.0.0",
+    "expo-haptics": ">=14.0.0 <15.0.0",
+    "react": ">=18.2.0 <19.0.0",
+    "react-native": ">=0.76.0 <0.78.0",
+    "react-native-gesture-handler": ">=2.20.0 <3.0.0",
+    "react-native-reanimated": ">=3.16.0 <4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "expo-haptics": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "d3-array": "3.2.4",
+    "d3-scale": "4.0.2",
+    "d3-shape": "3.2.0"
+  },
+  "devDependencies": {
+    "react-native-builder-bob": "0.40.12"
+  },
+  "react-native-builder-bob": {
+    "source": "src",
+    "output": "dist",
+    "targets": [
+      ["commonjs", { "esm": true }],
+      ["module", { "esm": true }],
+      "typescript"
+    ]
+  }
+}
