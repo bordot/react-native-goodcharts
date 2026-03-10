@@ -2,24 +2,47 @@
 
 `react-native-goodcharts` includes a rolling-buffer hook for streaming and monitoring scenarios.
 
+## Hook example
+
 ```tsx
 import { LineChart, useStreamingData } from "react-native-goodcharts";
 
-const stream = useStreamingData<{ timestamp: string; value: number }>({
-  maxPoints: 120,
-});
+export function LiveSeries() {
+  const stream = useStreamingData<{ timestamp: string; value: number }>({
+    maxPoints: 240,
+  });
 
-stream.push({ timestamp: new Date().toISOString(), value: 42 });
-
-<LineChart
-  data={stream.data}
-  xKey="timestamp"
-  yKey="value"
-  height={280}
-  crosshair
-  tooltip
-/>
+  return (
+    <LineChart
+      data={stream.data}
+      xKey="timestamp"
+      yKey="value"
+      height={280}
+      tooltip
+      crosshair
+      viewport={{ followEnd: true, size: 120, overscan: 6 }}
+    />
+  );
+}
 ```
 
-The hook keeps only the latest `maxPoints` values, which makes it suitable as the first building block for live telemetry, finance, and operations dashboards.
+## Buffer behavior
 
+`useStreamingData()` keeps only the latest `maxPoints` items and returns imperative methods for pushing and resetting data.
+
+- `push()` adds one datum
+- `pushMany()` appends several entries
+- `clear()` empties the buffer
+- `reset()` swaps in a new initial sequence
+
+## Lower-level utility
+
+If you want a non-hook rolling buffer, use `createStreamingBuffer()` directly.
+
+## Typical pairing
+
+Streaming views usually combine:
+
+- `useStreamingData()`
+- cartesian `viewport.followEnd`
+- `pannable` and `zoomable` when the user needs to inspect history

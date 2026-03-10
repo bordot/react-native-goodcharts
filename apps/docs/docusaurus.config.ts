@@ -2,10 +2,10 @@ import type { Config } from "@docusaurus/types";
 
 const config: Config = {
   title: "react-native-goodcharts",
-  url: "https://example.com",
-  baseUrl: "/",
+  url: "https://bordot.github.io",
+  baseUrl: "/react-native-goodcharts/",
   favicon: "img/favicon.ico",
-  organizationName: "goodcharts",
+  organizationName: "bordot",
   projectName: "react-native-goodcharts",
   presets: [
     [

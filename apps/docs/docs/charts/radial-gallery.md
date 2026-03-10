@@ -1,10 +1,41 @@
 # Radial Gallery
 
-The radial surface currently includes:
+The radial family currently combines slice-based charts and circular progress displays.
 
-- `PieChart`
-- `DonutChart`
-- `RadarChart`
-- `ProgressRingChart`
+## Included charts
 
-These components share the same `RadialCanvas` building block and can be extended later for additional radial families such as gauges and polar area charts.
+- `PieChart`: categorical proportions using `labelKey` and `valueKey`.
+- `DonutChart`: `PieChart` with `innerRadius` and optional `centerContent`.
+- `RadarChart`: multi-axis polygon comparison using a `series` array.
+- `ProgressRingChart`: circular progress with optional colored segments.
+
+## Example
+
+```tsx
+<PieChart
+  data={breakdown}
+  labelKey="label"
+  valueKey="value"
+  height={280}
+  showLabels
+  legend
+/>
+```
+
+```tsx
+<RadarChart
+  data={skills}
+  axes={["JavaScript", "TypeScript", "Design", "Ops"]}
+  series={[
+    { key: "current", label: "Current", color: "#2563EB" },
+    { key: "target", label: "Target", color: "#059669" },
+  ]}
+  height={320}
+  legend
+/>
+```
+
+## Notes
+
+- `ProgressRingChart` lives in the progress/gauge folder internally but belongs to the same circular visual family.
+- Radial exports serialize chart marks, legends, labels, and supported export overlays.

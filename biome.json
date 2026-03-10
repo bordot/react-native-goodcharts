@@ -14,6 +14,14 @@
   "files": {
     "ignoreUnknown": true,
     "include": ["**"],
-    "ignore": ["node_modules", "dist", ".expo", "coverage"]
+    "ignore": [
+      "node_modules",
+      "dist",
+      ".expo",
+      "coverage",
+      ".npm-cache",
+      "apps/docs/.docusaurus",
+      "apps/docs/build"
+    ]
   }
 }

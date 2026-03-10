@@ -1,6 +1,8 @@
 # Large Datasets
 
-The cartesian render path now supports viewport-based slicing before marks are rendered.
+The cartesian render path supports viewport-based slicing before marks are rendered.
+
+## Viewport windowing
 
 ```tsx
 <LineChart
@@ -12,19 +14,18 @@ The cartesian render path now supports viewport-based slicing before marks are r
 />
 ```
 
-Use `viewport.size` to define the visible window, `startIndex` to move through historical data, and `followEnd` for live views that should stay pinned to the newest points.
+Use:
+
+- `viewport.size` to define the visible window
+- `viewport.startIndex` to move through historical data
+- `viewport.overscan` to avoid obvious edge popping
+- `viewport.followEnd` for live views pinned to the latest points
 
 ## Built-in chart gestures
 
-Cartesian charts now support internal viewport updates through `pannable` and `zoomable`.
+Cartesian charts support internal viewport updates through `pannable` and `zoomable`.
 
 ```tsx
-const [viewport, setViewport] = useState({
-  startIndex: 1200,
-  size: 160,
-  overscan: 4,
-});
-
 <LineChart
   data={data}
   xKey="timestamp"
@@ -39,15 +40,28 @@ const [viewport, setViewport] = useState({
 />
 ```
 
-`interactionMode="auto"` separates competing gestures by default:
+## Gesture behavior
 
-- Single-finger drag inspects when crosshair or tooltip is active.
-- Single-finger drag creates a brush when range selection is enabled.
-- Two-finger pan switches to viewport navigation when inspect or selection layers are present.
-- Pinch zoom scales the viewport natively instead of mapping zoom to vertical drag.
-
-Use `interactionMode="navigate"` when the chart should behave like a dedicated explorer and reserve the primary drag gesture for panning while pinch handles zoom.
+- `interactionMode="auto"` separates inspect, selection, and navigation gestures.
+- `navigationActivation="two-finger"` keeps one-finger drag free for inspection when overlays are active.
+- Pinch changes viewport scale.
+- Pan changes the visible start index.
 
 ## Optional downsampling
 
-For dense line-like series, set `downsampleThreshold` to cap the number of rendered points per series after windowing. This keeps interaction data and path building bounded without changing the underlying dataset.
+Set `downsampleThreshold` to cap the number of rendered points after windowing for dense series.
+
+This is useful when:
+
+- the dataset is much larger than the viewport
+- live updates are frequent
+- you only need line shape preservation at the current zoom level
+
+## Useful exports
+
+The package also exposes the lower-level helpers used by the chart state pipeline:
+
+- `createWindowRange()`
+- `clampWindowRange()`
+- `sliceWindow()`
+- `slicePointWindow()`

@@ -15,6 +15,7 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - run: npm run sync:readme
       - run: npm run lint
       - run: npm run type-check
       - run: npm run build --workspace react-native-goodcharts

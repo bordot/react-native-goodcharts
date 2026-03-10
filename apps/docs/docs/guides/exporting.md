@@ -12,69 +12,45 @@
 - `ref.current?.toBase64("png")` returns raw PNG base64 for mounted charts.
 - `ref.current?.toBase64("jpeg")` returns raw JPEG base64 for mounted charts.
 
-Raster export uses Skia native capture APIs.
+## How export works
 
-- High-level chart components capture the mounted chart view, including React Native overlays.
-- `CartesianCanvas` and `RadialCanvas` capture the mounted Skia canvas directly.
+- High-level chart components serialize SVG for deterministic mark export.
+- Mounted raster export uses Skia-backed view or canvas capture.
+- High-level export wrappers can serialize marks, chrome, and supported export overlays.
+
+## Export overlays
+
+Use `exportOverlay` when you want exported output to include a deterministic interaction state.
+
+```tsx
+<LineChart
+  ref={chartRef}
+  data={data}
+  xKey="month"
+  yKey="value"
+  height={240}
+  exportOverlay={{
+    crosshair: { dataIndex: 2 },
+    selection: { startIndex: 1, endIndex: 3 },
+    tooltip: { dataIndex: 2, title: "Focused point" },
+  }}
+/>
+```
+
+## Current fidelity
+
+SVG export from high-level chart refs currently serializes:
+
+- chart marks
+- axes
+- legends
+- supported overlay state
+- tooltip callouts used through `exportOverlay`
+
+Raster export captures the mounted chart output instead of the SVG serializer output.
 
 ## Limits
 
-Mounted raster capture is required for `png` and `jpeg`.
-
+- Mounted raster capture is required for `png` and `jpeg`.
 - If the chart ref is not attached yet, raster export throws.
-- If a chart only has an SVG serializer and no mounted capture source, raster export throws.
-- `scale` is accepted by the API but is not applied yet to native raster capture.
-
-## Example
-
-```tsx
-import { LineChart, useChartRef } from 'react-native-goodcharts';
-
-export function ExportExample() {
-  const chartRef = useChartRef();
-
-  const exportSvg = async () => {
-    return chartRef.current?.toSVG();
-  };
-
-  const exportPng = async () => {
-    return chartRef.current?.toImage('png');
-  };
-
-  return (
-    <LineChart
-      ref={chartRef}
-      data={[
-        { month: 'Jan', value: 24 },
-        { month: 'Feb', value: 30 },
-        { month: 'Mar', value: 28 },
-      ]}
-      xKey="month"
-      yKey="value"
-      height={240}
-      exportOverlay={{
-        crosshair: { dataIndex: 1 },
-        tooltip: { dataIndex: 1, title: 'Focused point' },
-      }}
-    />
-  );
-}
-```
-
-## Current export fidelity
-
-SVG export from high-level chart refs serializes chart marks, axes, legends, and export overlays.
-
-For cartesian charts that includes:
-
-- selection ranges
-- crosshair guides
-- tooltip callouts
-
-For pie and donut charts that includes:
-
-- active-slice highlighting
-- tooltip callouts
-
-Raster export captures the mounted rendered chart instead of the SVG serializer output.
-
+- `scale` is accepted by the API but is not applied yet to raster capture.

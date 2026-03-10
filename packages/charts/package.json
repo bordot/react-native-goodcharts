@@ -1,6 +1,6 @@
 {
   "name": "react-native-goodcharts",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "GPU-accelerated charting library for React Native powered by Skia.",
   "main": "./dist/commonjs/index.js",
   "module": "./dist/module/index.js",
@@ -45,7 +45,7 @@
     "build:cleanmaps": "node ../../scripts/clean-dist-maps.cjs dist",
     "build": "npm run build:js && npm run build:types && npm run build:cleanmaps",
     "type-check": "tsc -p tsconfig.json --noEmit",
-    "prepack": "npm run build"
+    "prepack": "node ../../scripts/sync-package-readme.cjs && npm run build"
   },
   "peerDependencies": {
     "@shopify/react-native-skia": ">=1.5.0 <2.0.0",

@@ -1,0 +1,5 @@
+node_modules
+coverage
+.npm-cache
+apps/docs/.docusaurus
+apps/docs/build

@@ -1,10 +1,29 @@
 # Accessibility
 
-Charts should not disappear for assistive technology users.
+The package includes a baseline accessibility layer today.
 
-This scaffold includes:
+## Implemented today
 
-- Generated accessibility labels for cartesian and radial charts
-- Optional accessible data-table fallback rendering
-- Reduced-motion hook wiring via `AccessibilityInfo`
-- Theme primitives that support high-contrast and color-safe defaults
+- generated accessibility summaries for cartesian and radial charts
+- explicit `accessibilityLabel` overrides on all public chart components
+- hidden data-table fallback for cartesian charts through `accessibleDataTable`
+- `useReducedMotion()` hook backed by `AccessibilityInfo`
+
+## Example
+
+```tsx
+<LineChart
+  data={data}
+  xKey="month"
+  yKey="value"
+  height={240}
+  accessibilityLabel="Monthly revenue for 2025"
+  accessibleDataTable
+/>
+```
+
+## Notes
+
+- The generated summary includes start and end labels plus min and max values when numeric data is available.
+- The hidden data table is currently part of the cartesian implementation, not every chart family.
+- You should still provide domain-specific labels when the generated summary is too generic for your product.
